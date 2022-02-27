@@ -152,5 +152,5 @@ func InjectInstanceExample(program *miniprogram.MiniProgram) {
 [goal-web](https://github.com/goal-web/goal)  
 [qbhy/goal-wechat](https://github.com/qbhy/goal-wechat)  
 [silenceper/wechat](https://github.com/silenceper/wechat)  
-[微信官方文档](https://developers.weixin.qq.com/doc)  
+[微信官方文档](https://developers.weixin.qq.com/doc/)  
 qbhy0715@qq.com
