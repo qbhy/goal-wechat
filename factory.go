@@ -24,8 +24,8 @@ type factory struct {
 	payments         sync.Map
 }
 
-func (this *factory) Wechat() *wechat.Wechat {
-	return this.wechat
+func (factory *factory) Wechat() *wechat.Wechat {
+	return factory.wechat
 }
 
 func NewFactory(config *Config) Factory {
@@ -42,112 +42,112 @@ func NewFactory(config *Config) Factory {
 	}
 }
 
-func (this *factory) OpenPlatform(name ...string) *openplatform.OpenPlatform {
+func (factory *factory) OpenPlatform(name ...string) *openplatform.OpenPlatform {
 	var (
-		key = utils.DefaultString(name, this.config.OpenPlatforms.Default)
+		key = utils.DefaultString(name, factory.config.OpenPlatforms.Default)
 
-		instance, exists = this.openPlatforms.Load(key)
+		instance, exists = factory.openPlatforms.Load(key)
 	)
 	if exists {
 		return instance.(*openplatform.OpenPlatform)
 	}
 
-	var config = this.config.OpenPlatforms.Apps[key]
+	var config = factory.config.OpenPlatforms.Apps[key]
 	if config == nil {
 		logs.WithField("name", key).Warn("wechat.factory.OpenPlatform: app is not defined")
 		return nil
 	}
 
-	var app = this.wechat.GetOpenPlatform(config)
-	this.openPlatforms.Store(key, app)
+	var app = factory.wechat.GetOpenPlatform(config)
+	factory.openPlatforms.Store(key, app)
 
 	return app
 }
 
-func (this *factory) OfficialAccount(name ...string) *officialaccount.OfficialAccount {
+func (factory *factory) OfficialAccount(name ...string) *officialaccount.OfficialAccount {
 	var (
-		key = utils.DefaultString(name, this.config.OfficialAccounts.Default)
+		key = utils.DefaultString(name, factory.config.OfficialAccounts.Default)
 
-		instance, exists = this.officialAccounts.Load(key)
+		instance, exists = factory.officialAccounts.Load(key)
 	)
 	if exists {
 		return instance.(*officialaccount.OfficialAccount)
 	}
 
-	var config = this.config.OfficialAccounts.Apps[key]
+	var config = factory.config.OfficialAccounts.Apps[key]
 	if config == nil {
 		logs.WithField("name", key).Warn("wechat.factory.OfficialAccount: app is not defined")
 		return nil
 	}
 
-	var app = this.wechat.GetOfficialAccount(config)
-	this.officialAccounts.Store(key, app)
+	var app = factory.wechat.GetOfficialAccount(config)
+	factory.officialAccounts.Store(key, app)
 
 	return app
 }
 
-func (this *factory) Work(name ...string) *work.Work {
+func (factory *factory) Work(name ...string) *work.Work {
 	var (
-		key = utils.DefaultString(name, this.config.Works.Default)
+		key = utils.DefaultString(name, factory.config.Works.Default)
 
-		instance, exists = this.works.Load(key)
+		instance, exists = factory.works.Load(key)
 	)
 	if exists {
 		return instance.(*work.Work)
 	}
 
-	var config = this.config.Works.Apps[key]
+	var config = factory.config.Works.Apps[key]
 	if config == nil {
 		logs.WithField("name", key).Warn("wechat.factory.Work: app is not defined")
 		return nil
 	}
 
-	var app = this.wechat.GetWork(config)
-	this.works.Store(key, app)
+	var app = factory.wechat.GetWork(config)
+	factory.works.Store(key, app)
 
 	return app
 }
 
-func (this *factory) MiniProgram(name ...string) *miniprogram.MiniProgram {
+func (factory *factory) MiniProgram(name ...string) *miniprogram.MiniProgram {
 	var (
-		key = utils.DefaultString(name, this.config.MiniPrograms.Default)
+		key = utils.DefaultString(name, factory.config.MiniPrograms.Default)
 
-		instance, exists = this.miniPrograms.Load(key)
+		instance, exists = factory.miniPrograms.Load(key)
 	)
 	if exists {
 		return instance.(*miniprogram.MiniProgram)
 	}
 
-	var config = this.config.MiniPrograms.Apps[key]
+	var config = factory.config.MiniPrograms.Apps[key]
 	if config == nil {
 		logs.WithField("name", key).Warn("wechat.factory.MiniProgram: app is not defined")
 		return nil
 	}
 
-	var app = this.wechat.GetMiniProgram(config)
-	this.miniPrograms.Store(key, app)
+	var app = factory.wechat.GetMiniProgram(config)
+	factory.miniPrograms.Store(key, app)
 
 	return app
 }
 
-func (this *factory) Payment(name ...string) *pay.Pay {
+func (factory *factory) Payment(name ...string) *pay.Pay {
 	var (
-		key = utils.DefaultString(name, this.config.Payments.Default)
+		key = utils.DefaultString(name, factory.config.Payments.Default)
 
-		instance, exists = this.payments.Load(key)
+		instance, exists = factory.payments.Load(key)
 	)
 	if exists {
 		return instance.(*pay.Pay)
 	}
 
-	var config = this.config.Payments.Apps[key]
+	var config = factory.config.Payments.Apps[key]
 	if config == nil {
 		logs.WithField("name", key).Warn("wechat.factory.Payment: app is not defined")
 		return nil
 	}
 
-	var app = this.wechat.GetPay(config)
-	this.payments.Store(key, app)
+	var app = factory.wechat.GetPay(config)
+	factory.payments.Store(key, app)
 
 	return app
 }
