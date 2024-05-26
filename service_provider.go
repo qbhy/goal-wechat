@@ -9,6 +9,10 @@ import (
 	"github.com/silenceper/wechat/v2/work"
 )
 
+func NewService() contracts.ServiceProvider {
+	return ServiceProvider{}
+}
+
 type ServiceProvider struct {
 }
 
